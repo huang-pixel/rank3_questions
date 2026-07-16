@@ -1,10 +1,10 @@
-#ifndef PERMUTATIONS_BITS_H
-# define PERMUTATIONS_BITS_H
+#ifndef PERMUTATIONS_H
+# define PERMUTATIONS_H
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
-void	perm(int *cnt, int n, int depth, char *buf);
+void	perm(int n, int *tab, int depth, char *buf);
 
 #endif

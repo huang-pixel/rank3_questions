@@ -1,24 +1,22 @@
-#include "permutations_bits.h"
+#include "permutations.h"
 
-void	perm(int *cnt, int n, int depth, char *buf)
+void	perm(int n, int *tab, int depth, char *buf)
 {
-	int	c;
-
 	if (depth == n)
 	{
 		buf[n] = '\0';
 		puts(buf);
 		return ;
 	}
-	c = 0;
+	int	c = 0;
 	while (c < 256)
 	{
-		if (cnt[c])
+		if (tab[c])
 		{
 			buf[depth] = (char)c;
-			--cnt[c];
-			perm(cnt, n, depth + 1, buf);
-			++cnt[c];
+			tab[c]--;
+			perm(n, tab, depth + 1, buf);
+			tab[c]++;
 		}
 		c++;
 	}
@@ -26,11 +24,13 @@ void	perm(int *cnt, int n, int depth, char *buf)
 
 int	main(int ac, char **av)
 {
+	if (ac != 2)
+		return (1);
 	if (ac == 2 && av[1][0])
 	{
-		int		i;
+		int		tab[256] = {0};
 		int		n;
-		int		cnt[256] = {0};
+		int		i;
 		char	*buf;
 
 		n = strlen(av[1]);
@@ -40,10 +40,10 @@ int	main(int ac, char **av)
 		i = 0;
 		while (i < n)
 		{
-			++cnt[(unsigned char)av[1][i]];
+			tab[(unsigned char)av[1][i]]++;
 			i++;
 		}
-		perm(cnt, n, 0, buf);
+		perm(n, tab, 0, buf);
 		free(buf);
 	}
 	return (0);
